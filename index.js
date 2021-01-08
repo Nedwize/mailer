@@ -1,7 +1,17 @@
 const express = require('express');
 const app = express();
+const keys = require('./config/keys');
+const mongoose = require('mongoose');
 require('./services/passport');
 (require('./routes/authRoutes'))(app);
+
+mongoose.connect(keys.mongoURI, {
+        authSource: 'admin',
+        useNewUrlParser: true ,
+        useUnifiedTopology: true
+    }, () => {
+        console.log("Connected to DB Servers");
+    });
 
 
 
