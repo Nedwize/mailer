@@ -5,7 +5,7 @@ const mongoose = require('mongoose');
 const cookieSession = require('cookie-session');
 const passport = require('passport');
 
-require('./models/User');
+require('./Models/User');
 require('./services/passport');
 
 mongoose.connect(keys.mongoURI, {
