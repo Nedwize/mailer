@@ -8,6 +8,11 @@ const passport = require('passport');
 require('./Models/User');
 require('./services/passport');
 
+
+mongoose.set('useNewUrlParser', true);
+mongoose.set('useFindAndModify', false);
+mongoose.set('useCreateIndex', true);
+mongoose.set('useUnifiedTopology', true);
 mongoose.connect(keys.mongoURI, {
         authSource: 'admin',
         useNewUrlParser: true ,
