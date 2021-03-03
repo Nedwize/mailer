@@ -4,8 +4,7 @@
   "description": "undefined",
   "main": "index.js",
   "engines": {
-    "node": ">10.6",
-    "npm": "5.0.3"
+    "node": ">10.6"
   },
   "scripts": {
     "start": "node index.js",
