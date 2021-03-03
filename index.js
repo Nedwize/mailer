@@ -5,8 +5,9 @@ const mongoose = require("mongoose");
 const cookieSession = require("cookie-session");
 const passport = require("passport");
 
-require("./Models/User");
+require("./models/User");
 require("./services/passport");
+require("./models/Surveys");
 
 mongoose.set("useNewUrlParser", true);
 mongoose.set("useFindAndModify", false);
@@ -35,6 +36,7 @@ app.use(passport.initialize());
 app.use(passport.session());
 
 require("./routes/authRoutes")(app);
+require("./routes/surveyRoutes")(app);
 
 if (process.env.NODE_ENV === "production") {
   // Serving Production assets
