@@ -1,6 +1,7 @@
 import React from "react";
+import { connect } from "react-redux";
 
-const SurveyReview = (props) => {
+const SurveyFormReview = (props) => {
   return (
     <div>
       <h1>Form Review</h1>
@@ -14,4 +15,9 @@ const SurveyReview = (props) => {
   );
 };
 
-export default SurveyReview;
+const mapStateToProps = (state) => {
+  console.log(state);
+  return { formValues: state.form.surveyForm.values };
+};
+
+export default connect(mapStateToProps)(SurveyFormReview);
