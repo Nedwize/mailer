@@ -38,7 +38,7 @@ const SurveyForm = (props) => {
 
   return (
     <div>
-      <form onSubmit={props.handleSubmit((values) => console.log(values))}>
+      <form onSubmit={props.handleSubmit(props.onSurveySubmit)}>
         {renderFields()}
         <Link to="/surveys" className="red btn-flat white-text">
           Cancel
