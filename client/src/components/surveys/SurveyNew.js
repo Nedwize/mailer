@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { reduxForm } from "redux-form";
 import SurveyForm from "./SurveyForm";
 import SurveyReview from "./SurveyFormReview";
 
@@ -15,4 +16,6 @@ const SurveyNew = () => {
   return <div>{renderContent()}</div>;
 };
 
-export default SurveyNew;
+export default reduxForm({
+  form: "surveyForm",
+})(SurveyNew);
