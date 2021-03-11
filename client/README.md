@@ -13,3 +13,4 @@
 - Redux connect method lets you get the global state of the client
 - Use connect method with mapStateToProps function to get the state
 - Whenever we define the mapStateToProps function, whatever we return from that function is passed as state to the component
+- Use passport access token for mailing
