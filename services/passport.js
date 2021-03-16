@@ -31,10 +31,12 @@ passport.use(
           console.log(`User: ${profile.id} exists`);
           done(null, existingUser);
         } else {
-          new User({ googleId: profile.id }).save().then((data) => {
-            console.log(`New User: ${profile.id} created`);
-            done(null, data);
-          });
+          new User({ googleId: profile.id, refreshToken, accessToken })
+            .save()
+            .then((data) => {
+              console.log(`New User: ${profile.id} created`);
+              done(null, data);
+            });
         }
       });
     }

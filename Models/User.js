@@ -5,6 +5,8 @@ const { Schema } = mongoose;
 
 const userSchema = new Schema({
   googleId: String,
+  refreshToken: String,
+  accessToken: String,
   credits: { type: Number, default: 50 },
 });
 
