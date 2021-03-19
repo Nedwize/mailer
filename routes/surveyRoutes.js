@@ -1,7 +1,7 @@
 const mongoose = require("mongoose");
 const verifyAuth = require("../middleware/verifyAuth");
 const requireCredits = require("../middleware/requireCredits");
-const nodemailer = require("nodemailer");
+// const nodemailer = require("nodemailer");
 
 const keys = require("../config/keys");
 
@@ -24,33 +24,36 @@ module.exports = (app) => {
     //   createdAt: Date.now(),
     // });
 
-    //   const smtpTransport = nodemailer.createTransport({
-    //     service: "gmail",
-    //     auth: {
-    //       type: "OAuth2",
-    //       user: req.user.googleId,
-    //       clientID: keys.googleClientID,
-    //       clientSecret: keys.googleClientSecret,
-    //       refreshToken: req.user.refreshToken,
-    //       accessToken: req.user.accessToken,
-    //     },
-    //     tls: {
-    //       rejectUnauthorized: false,
-    //     },
-    //   });
+    const smtpTransport = nodemailer.createTransport({
+      pool: true,
+      maxConnections: 20,
+      maxMessages: 1000,
+      service: "gmail",
+      auth: {
+        type: "OAuth2",
+        user: req.user.googleId,
+        clientID: keys.googleClientID,
+        clientSecret: keys.googleClientSecret,
+        refreshToken: req.user.refreshToken,
+        accessToken: req.user.accessToken,
+      },
+      tls: {
+        rejectUnauthorized: false,
+      },
+    });
 
-    //   const mailOptions = {
-    //     from: req.user.googleId,
-    //     to: recipientMail,
-    //     subject: "Node.js Email with Secure OAuth",
-    //     generateTextFromHTML: true,
-    //     html: "<b>test</b>",
-    //   };
+    const mailOptions = {
+      from: req.user.googleId,
+      to: recipientMail,
+      subject: "Node.js Email with Secure OAuth",
+      generateTextFromHTML: true,
+      html: "<b>test</b>",
+    };
 
-    //   smtpTransport.sendMail(mailOptions, (error, response) => {
-    //     error ? console.log(error) : console.log(response);
-    //     smtpTransport.close();
-    //   });
+    smtpTransport.sendMail(mailOptions, (error, response) => {
+      error ? console.log(error) : console.log(response);
+      smtpTransport.close();
+    });
   });
 
   // Method: GET
