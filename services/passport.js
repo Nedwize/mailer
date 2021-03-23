@@ -34,6 +34,7 @@ passport.use(
           console.log(`User: ${profile.id} exists`);
           done(null, existingUser);
         } else {
+          // Create new user
           new User({
             email: profile.emails[0].value,
             displayName: profile.displayName,

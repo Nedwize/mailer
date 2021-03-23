@@ -4,6 +4,7 @@ const requireCredits = require("../middleware/requireCredits");
 // const nodemailer = require("nodemailer");
 
 const keys = require("../config/keys");
+const { decrypt } = require("../services/crypto");
 
 const Survey = mongoose.model("surveys");
 
@@ -11,7 +12,10 @@ module.exports = (app) => {
   // Method: POST
   // Desc: Creates a new survey
   app.post("/api/survey", verifyAuth, requireCredits, (req, res) => {
-    const { title, subject, body, recipients } = req.body;
+    const accessToken = decrypt(req.user.accessToken);
+    const refreshToken = decrypt(req.user.refreshToken);
+
+    const { title, subject, body, recipientMail } = req.body;
 
     // const survey = new Survey({
     //   title,
@@ -31,11 +35,11 @@ module.exports = (app) => {
       service: "gmail",
       auth: {
         type: "OAuth2",
-        user: req.user.googleId,
+        user: req.user.email,
         clientID: keys.googleClientID,
         clientSecret: keys.googleClientSecret,
-        refreshToken: req.user.refreshToken,
-        accessToken: req.user.accessToken,
+        refreshToken: refreshToken,
+        accessToken: accessToken,
       },
       tls: {
         rejectUnauthorized: false,
@@ -43,7 +47,7 @@ module.exports = (app) => {
     });
 
     const mailOptions = {
-      from: req.user.googleId,
+      from: req.user.email,
       to: recipientMail,
       subject: "Node.js Email with Secure OAuth",
       generateTextFromHTML: true,
